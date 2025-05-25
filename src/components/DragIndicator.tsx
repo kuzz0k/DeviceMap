@@ -10,7 +10,7 @@ const DragIndicator: React.FC<DragIndicatorProps> = ({
   isDraggable,
   deviceName,
 }) => {
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(false)
 
   if (!isDraggable || !isVisible) return null
 

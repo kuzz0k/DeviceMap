@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from "react"
+import React, { useRef, useCallback, useState } from "react"
 import {
   MapContainer,
   TileLayer,
@@ -68,37 +68,56 @@ interface DeviceMarkerProps {
   device: IDevice
   isDraggable?: boolean
   isChild?: boolean
+  onPositionUpdate?: (lat: number, lon: number) => void
 }
 
 const DeviceMarker: React.FC<DeviceMarkerProps> = ({
   device,
   isDraggable = false,
   isChild = false,
+  onPositionUpdate,
 }) => {
   const map = useMap()
   const markerRef = useRef<L.Marker>(null)
+  const [currentPosition, setCurrentPosition] = useState([
+    device.lat,
+    device.lon,
+  ])
+  const [popupKey, setPopupKey] = useState(0)
 
   const handleDoubleClick = useCallback(() => {
-    map.setView([device.lat, device.lon], 15)
-  }, [map, device.lat, device.lon])
+    const currentZoom = map.getZoom()
+    const targetZoom = Math.max(currentZoom + 2, 15)
+    map.setView([currentPosition[0], currentPosition[1]], targetZoom)
+  }, [map, currentPosition])
 
   const handleDragEnd = useCallback(() => {
     const marker = markerRef.current
     if (marker) {
       const position = marker.getLatLng()
+      const newLat = position.lat
+      const newLon = position.lng
+
+      setCurrentPosition([newLat, newLon])
+      setPopupKey((prev) => prev + 1)
+
       console.log(`Device ${device.name} moved to:`, {
-        lat: position.lat,
-        lon: position.lng,
+        lat: newLat,
+        lon: newLon,
       })
+
+      if (onPositionUpdate) {
+        onPositionUpdate(newLat, newLon)
+      }
     }
-  }, [device.name])
+  }, [device.name, onPositionUpdate])
 
   return (
     <>
       {" "}
       <Marker
         ref={markerRef}
-        position={[device.lat, device.lon]}
+        position={[currentPosition[0], currentPosition[1]]}
         icon={createCustomIcon(device.model, device.status, isChild)}
         draggable={isDraggable}
         eventHandlers={{
@@ -108,8 +127,8 @@ const DeviceMarker: React.FC<DeviceMarkerProps> = ({
       >
         <Tooltip permanent={false} direction="top" offset={[0, -10]}>
           {device.name}
-        </Tooltip>
-        <Popup className="custom-popup">
+        </Tooltip>{" "}
+        <Popup key={popupKey} className="custom-popup">
           <div className="popup-content">
             <div className="popup-title">{device.name}</div>
             <div className="popup-field">
@@ -119,8 +138,8 @@ const DeviceMarker: React.FC<DeviceMarkerProps> = ({
               <strong>Model:</strong> {device.model}
             </div>
             <div className="popup-field">
-              <strong>Location:</strong> {device.lat.toFixed(6)},{" "}
-              {device.lon.toFixed(6)}
+              <strong>Location:</strong> {currentPosition[0].toFixed(6)},{" "}
+              {currentPosition[1].toFixed(6)}
             </div>
             {isDraggable && (
               <div className="popup-field">
@@ -146,6 +165,10 @@ const DeviceMap: React.FC = () => {
   const center: [number, number] = [55.751244, 37.618423]
   const draggableDevice = devices[4]
 
+  const handlePositionUpdate = useCallback((lat: number, lon: number) => {
+    console.log(`Position updated in DeviceMap: ${lat}, ${lon}`)
+  }, [])
+
   return (
     <div style={{ height: "100vh", width: "100%", position: "relative" }}>
       <MapInfo />
@@ -161,13 +184,13 @@ const DeviceMap: React.FC = () => {
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-
+        />{" "}
         {devices.map((device, index) => (
           <DeviceMarker
             key={device.id}
             device={device}
             isDraggable={index === 4}
+            onPositionUpdate={index === 4 ? handlePositionUpdate : undefined}
           />
         ))}
       </MapContainer>
