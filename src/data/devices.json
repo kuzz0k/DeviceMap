@@ -1,0 +1,60 @@
+[
+  {
+    "id": "device-1",
+    "name": "Main Gateway",
+    "lat": 55.751244,
+    "lon": 37.618423,
+    "model": "advanced",
+    "status": "on",
+    "children": [
+      {
+        "id": "device-1-child-1",
+        "name": "Sensor A",
+        "lat": 55.751344,
+        "lon": 37.618623,
+        "model": "basic",
+        "status": "on"
+      },
+      {
+        "id": "device-1-child-2",
+        "name": "Sensor B",
+        "lat": 55.751144,
+        "lon": 37.618323,
+        "model": "basic",
+        "status": "off"
+      }
+    ]
+  },
+  {
+    "id": "device-2",
+    "name": "Street Camera",
+    "lat": 55.754244,
+    "lon": 37.620423,
+    "model": "special",
+    "status": "on"
+  },
+  {
+    "id": "device-3",
+    "name": "Traffic Analyzer",
+    "lat": 55.748244,
+    "lon": 37.615423,
+    "model": "advanced",
+    "status": "off"
+  },
+  {
+    "id": "device-4",
+    "name": "Weather Station",
+    "lat": 55.750244,
+    "lon": 37.625423,
+    "model": "basic",
+    "status": "on"
+  },
+  {
+    "id": "device-5",
+    "name": "Draggable Sensor",
+    "lat": 55.753244,
+    "lon": 37.622423,
+    "model": "special",
+    "status": "on"
+  }
+]

@@ -1,0 +1,116 @@
+.map-info {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 200px;
+  max-width: 280px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.map-info h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.map-info h4 {
+  margin: 15px 0 8px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.map-info ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13px;
+  color: #555;
+}
+
+.map-info li {
+  margin: 4px 0;
+}
+
+.legend {
+  margin-top: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 6px 0;
+  font-size: 12px;
+  color: #555;
+}
+
+.legend-marker {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 1px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 8px;
+  font-weight: bold;
+}
+
+.basic-on {
+  background-color: #4caf50;
+}
+
+.basic-off {
+  background-color: #f44336;
+}
+
+.advanced-on {
+  background-color: #2196f3;
+}
+
+.advanced-off {
+  background-color: #ff9800;
+}
+
+.special-on {
+  background-color: #9c27b0;
+}
+
+.special-off {
+  background-color: #607d8b;
+}
+
+.legend-marker::before {
+  content: attr(data-letter);
+}
+
+.basic-on::before,
+.basic-off::before {
+  content: "B";
+}
+
+.advanced-on::before,
+.advanced-off::before {
+  content: "A";
+}
+
+.special-on::before,
+.special-off::before {
+  content: "S";
+}
+
+@media (max-width: 768px) {
+  .map-info {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    width: calc(100% - 20px);
+  }
+}

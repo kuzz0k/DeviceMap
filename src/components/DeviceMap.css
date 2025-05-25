@@ -1,0 +1,85 @@
+.leaflet-container {
+  height: 100vh;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.custom-popup .leaflet-popup-content-wrapper {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+.custom-popup .leaflet-popup-content {
+  margin: 10px;
+  line-height: 1.4;
+}
+
+.custom-popup .leaflet-popup-tip {
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.popup-content {
+  padding: 5px;
+  min-width: 200px;
+}
+
+.popup-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.popup-field {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.popup-field strong {
+  color: #333;
+}
+
+.popup-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-on {
+  background-color: #4caf50;
+  color: white;
+}
+
+.status-off {
+  background-color: #f44336;
+  color: white;
+}
+
+.custom-marker {
+  transition: transform 0.2s ease;
+}
+
+.custom-marker:hover {
+  transform: scale(1.1);
+}
+
+/* Стили для тултипов */
+.leaflet-tooltip {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
